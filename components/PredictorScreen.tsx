@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import type { User } from '../types';
 import { usePrediction } from '../services/authService';
 import Sidebar from './Sidebar';
@@ -28,25 +28,21 @@ const GuideIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 );
 
 const RefreshIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-    <path fillRule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clipRule="evenodd" />
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
   </svg>
 );
 
-const PlayIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-    <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l13.96 7.376c1.268.67 1.268 2.514 0 3.184l-13.96 7.376c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
+const ChevronDownIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={4} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
   </svg>
 );
 
-// Custom Star Icon - Updated to remove padding so container controls size
+// Custom Star Icon - Filled style
 const StarIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="w-full h-full drop-shadow-sm">
-    <path 
-        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" 
-        fill="#ffffff" 
-        stroke="none"
-    />
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-white drop-shadow-sm">
+    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
   </svg>
 );
 
@@ -59,7 +55,6 @@ const LimitReachedView = React.memo(({ handleDepositRedirect }: { handleDepositR
      <div 
         className="w-full h-screen flex flex-col font-poppins relative overflow-hidden items-center justify-center p-4 bg-[#0088ff]"
       >
-        {/* Gradient Background matching reference */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0ea5e9] via-[#0284c7] to-[#0c4a6e] z-0"></div>
 
         <div className="w-full max-w-sm bg-[#082f49]/40 backdrop-blur-md rounded-2xl p-8 border border-[#38bdf8]/20 text-center shadow-2xl z-10">
@@ -87,146 +82,157 @@ const PredictorView = React.memo((props: {
     gridState: GridItemType[];
     selectedTraps: number;
     setSelectedTraps: (val: number) => void;
-    isSignalActive: boolean; // True means signal is shown (Get Signal LOCKED, Refresh UNLOCKED)
+    isSignalActive: boolean; 
     onGetSignal: () => void;
     onRefresh: () => void;
     confidence: number | null;
     isLoading: boolean;
 }) => {
     const { t } = useLanguage();
+    const [isMinesMenuOpen, setIsMinesMenuOpen] = useState(false);
+    const minesMenuRef = useRef<HTMLDivElement>(null);
+
+    // Close menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (minesMenuRef.current && !minesMenuRef.current.contains(event.target as Node)) {
+                setIsMinesMenuOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    const toggleMinesMenu = () => {
+        if (!props.isSignalActive) {
+            setIsMinesMenuOpen(!isMinesMenuOpen);
+        }
+    };
+
+    const handleSelectMines = (count: number) => {
+        props.setSelectedTraps(count);
+        setIsMinesMenuOpen(false);
+    };
     
     return (
-        <div className="w-full min-h-screen flex flex-col relative font-poppins overflow-hidden bg-[#0088ff]">
-            {/* Gradient Background matching reference */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0ea5e9] via-[#0284c7] to-[#0c4a6e] z-0"></div>
+        <div className="w-full min-h-screen flex flex-col relative font-poppins overflow-hidden bg-[#0066cc]">
+            {/* Background */}
+            <div className="absolute inset-0 bg-[#0080ff] z-0"></div>
 
-            {/* Top Bar */}
-            <header className="w-full flex justify-between items-start p-5 z-10">
-                 {/* Menu Button (Left in some designs, but keeping consistent with user request 'top right') */}
-                <div className="flex-1"></div>
-                
-                {/* Guide and Menu (Top Right as requested) */}
-                <div className="flex items-center gap-3">
-                    <button onClick={props.onOpenGuide} className="p-2 rounded-full bg-black/20 text-white hover:bg-black/30 transition active:scale-90" aria-label={t('openGuide')}>
-                        <GuideIcon className="w-7 h-7 drop-shadow-md" />
-                    </button>
-                    <button onClick={props.onOpenSidebar} className="p-2 rounded-full bg-black/20 text-white hover:bg-black/30 transition active:scale-90" aria-label={t('openMenu')}>
-                        <MenuIcon className="w-7 h-7 drop-shadow-md" />
-                    </button>
-                </div>
+            {/* Top Bar (Guide & Menu) */}
+            <header className="absolute top-0 right-0 p-5 z-20 flex gap-3">
+                <button onClick={props.onOpenGuide} className="p-2 rounded-full bg-black/20 text-white hover:bg-black/30 transition active:scale-90" aria-label={t('openGuide')}>
+                    <GuideIcon className="w-7 h-7 drop-shadow-md" />
+                </button>
+                <button onClick={props.onOpenSidebar} className="p-2 rounded-full bg-black/20 text-white hover:bg-black/30 transition active:scale-90" aria-label={t('openMenu')}>
+                    <MenuIcon className="w-7 h-7 drop-shadow-md" />
+                </button>
             </header>
 
-            <main className="flex-grow flex flex-col items-center w-full max-w-md mx-auto px-4 z-10 relative -mt-8">
+            <main className="flex-grow flex flex-col items-center justify-center w-full max-w-md mx-auto px-4 z-10 relative space-y-6">
                 
-                {/* Title Area with Animation */}
-                <div className="mb-6 text-center">
-                    <h2 className="font-black text-4xl md:text-5xl text-[#0c4a6e] opacity-30 absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 select-none blur-[1px]">
-                        MINES
-                    </h2>
-                    <h1 className="relative font-russo text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] to-[#cceeff] drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] tracking-wide animate-pulse-slow text-center leading-tight">
-                        MINES<br/>
-                        <span className="text-3xl md:text-4xl">PREDICTOR PRO</span>
-                    </h1>
+                {/* Mines Selector & Switch Button Group */}
+                <div className="flex flex-col items-center gap-3 w-full relative z-30 mt-10">
+                    
+                    {/* Mines Dropdown Button */}
+                    <div className="relative" ref={minesMenuRef}>
+                        <button
+                            onClick={toggleMinesMenu}
+                            disabled={props.isSignalActive}
+                            className={`
+                                flex items-center justify-between gap-3 px-6 py-2 bg-[#003366] rounded-full text-white font-russo text-lg uppercase tracking-wide shadow-lg border border-[#004080]
+                                ${props.isSignalActive ? 'opacity-70 cursor-not-allowed' : 'active:scale-95 cursor-pointer'}
+                            `}
+                        >
+                            <span>MINES: {props.selectedTraps}</span>
+                            <ChevronDownIcon className={`w-4 h-4 transition-transform ${isMinesMenuOpen ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        {/* Dropdown Menu */}
+                        {isMinesMenuOpen && (
+                            <div className="absolute top-full left-0 right-0 mt-2 bg-[#003366] border border-[#004080] rounded-xl overflow-hidden shadow-xl flex flex-col animate-fade-in z-40">
+                                {[1, 3, 5].map((count) => (
+                                    <button
+                                        key={count}
+                                        onClick={() => handleSelectMines(count)}
+                                        className={`py-3 font-russo text-white hover:bg-[#004080] transition-colors ${props.selectedTraps === count ? 'bg-[#004080]' : ''}`}
+                                    >
+                                        MINES {count}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Switch Multiple Button (Visual Only) */}
+                    <button className="px-8 py-2 bg-[#ff9900] rounded-full text-white font-russo text-sm uppercase tracking-wide shadow-md transform hover:brightness-110 transition cursor-default">
+                        SWITCH MULTIPLE
+                    </button>
                 </div>
 
                 {/* 5x5 Grid */}
-                <div className="bg-[#082f49]/40 p-3 rounded-2xl border border-[#bae6fd]/20 shadow-2xl backdrop-blur-sm w-full aspect-square max-w-[360px] mb-6">
-                    <div className="grid grid-cols-5 grid-rows-5 gap-2 w-full h-full">
-                        {props.gridState.map((item, index) => (
-                            <div 
-                                key={index}
-                                className={`
-                                    relative w-full h-full rounded-lg flex items-center justify-center overflow-hidden
-                                    border-t border-l border-r border-b-[4px]
-                                    ${item === 'star' 
-                                        ? 'bg-gradient-to-b from-[#fbbf24] to-[#f59e0b] border-t-[#ffffff]/50 border-l-[#fcd34d] border-r-[#fcd34d] border-b-[#b45309]' 
-                                        : 'bg-[#0c4a6e] border-t-[#38bdf8]/30 border-l-[#38bdf8]/10 border-r-[#38bdf8]/10 border-b-[#062c44]'
-                                    }
-                                `}
-                            >
-                                {(item === 'empty' || item === 'mine') && (
-                                    <div className="w-3 h-3 rounded-full bg-[#0ea5e9]/40 shadow-inner"></div>
-                                )}
-                                
-                                {item === 'star' && (
-                                    <div className="w-[65%] h-[65%] flex items-center justify-center animate-pop-in">
-                                        <StarIcon />
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Trap Selection Buttons */}
-                <div className="flex justify-between w-full max-w-[360px] gap-3 mb-5 items-stretch">
-                    {[1, 3, 5].map((traps) => (
-                        <button
-                            key={traps}
-                            onClick={() => !props.isSignalActive && props.setSelectedTraps(traps)}
-                            disabled={props.isSignalActive}
+                <div className="w-full aspect-square max-w-[340px] grid grid-cols-5 grid-rows-5 gap-2.5">
+                    {props.gridState.map((item, index) => (
+                        <div 
+                            key={index}
                             className={`
-                                flex-1 py-2 px-1 rounded-2xl font-russo text-sm md:text-base tracking-wider transition-all duration-200 border whitespace-normal h-auto min-h-[44px] flex items-center justify-center text-center leading-tight break-words
-                                ${props.selectedTraps === traps 
-                                    ? 'bg-[#0ea5e9] border-white/50 text-white shadow-[0_0_15px_rgba(14,165,233,0.6)] scale-105' 
-                                    : 'bg-[#0c4a6e] border-[#075985] text-gray-400 hover:bg-[#0f5c85]'}
-                                ${props.isSignalActive ? 'opacity-50 cursor-not-allowed' : 'active:scale-95'}
+                                relative w-full h-full rounded-lg shadow-sm flex items-center justify-center
+                                ${item === 'star' 
+                                    ? 'bg-[#ffaa00] border-b-4 border-[#cc8800]' // Orange for Stars
+                                    : 'bg-[#003366] border-b-4 border-[#002244]' // Dark Blue for Empty
+                                }
                             `}
                         >
-                            MINES {traps}
-                        </button>
+                            {item === 'empty' || item === 'mine' ? (
+                                <div className="w-4 h-4 rounded-full bg-[#002244]/50 shadow-inner"></div>
+                            ) : (
+                                <div className="w-4/5 h-4/5 animate-pop-in">
+                                    <StarIcon />
+                                </div>
+                            )}
+                        </div>
                     ))}
                 </div>
 
-                {/* Controls */}
-                <div className="w-full max-w-[360px] flex gap-3 mb-5 min-h-[64px] h-auto items-stretch">
-                    {/* Refresh Button */}
+                {/* Bottom Controls */}
+                <div className="w-full max-w-[340px] flex items-center gap-4 mt-4">
+                    {/* Refresh Button - Circular Blue */}
                     <button
                         onClick={props.onRefresh}
-                        disabled={!props.isSignalActive} // Only enabled when signal is showing
+                        disabled={!props.isSignalActive}
                         className={`
-                            w-[64px] min-h-[64px] h-auto rounded-2xl flex items-center justify-center border-b-4 transition-all flex-shrink-0
+                            w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all transform border-b-4
                             ${props.isSignalActive 
-                                ? 'bg-[#3b82f6] border-[#1d4ed8] text-white shadow-lg active:border-b-0 active:translate-y-1 hover:brightness-110 cursor-pointer' 
-                                : 'bg-[#1e293b] border-[#0f172a] text-gray-600 cursor-not-allowed'}
+                                ? 'bg-[#0055aa] border-[#003366] text-white hover:scale-105 active:scale-95 active:border-b-0 active:translate-y-1' 
+                                : 'bg-[#002244] border-[#001122] text-white/30 cursor-not-allowed'}
                         `}
                     >
                         <RefreshIcon className={`w-8 h-8 ${props.isSignalActive ? 'animate-spin-once' : ''}`} />
                     </button>
 
-                    {/* Get Signal Button */}
+                    {/* Get Signal Button - Wide Green */}
                     <button
                         onClick={props.onGetSignal}
-                        disabled={props.isSignalActive || props.isLoading} // Locked when signal is active or loading
+                        disabled={props.isSignalActive || props.isLoading}
                         className={`
-                            flex-1 min-h-[64px] h-auto py-2 px-2 rounded-2xl flex items-center justify-center gap-2 font-russo text-xl md:text-2xl tracking-wide border-b-4 transition-all shadow-xl whitespace-normal break-words leading-tight text-center
+                            flex-1 h-16 rounded-full font-russo text-2xl uppercase tracking-wider shadow-lg transition-all transform border-b-4 flex items-center justify-center
                             ${!props.isSignalActive && !props.isLoading
-                                ? 'bg-gradient-to-r from-[#4ade80] to-[#16a34a] border-[#14532d] text-[#064e3b] hover:brightness-110 active:border-b-0 active:translate-y-1'
-                                : 'bg-[#1e293b] border-[#0f172a] text-gray-500 cursor-not-allowed'}
+                                ? 'bg-[#33cc33] border-[#228822] text-white hover:brightness-110 active:scale-95 active:border-b-0 active:translate-y-1'
+                                : 'bg-[#002244] border-[#001122] text-white/30 cursor-not-allowed'}
                         `}
                     >
                         {props.isLoading ? (
-                            <div className="flex space-x-1">
-                                <div className="w-3 h-3 bg-current rounded-full animate-bounce delay-0"></div>
-                                <div className="w-3 h-3 bg-current rounded-full animate-bounce delay-150"></div>
-                                <div className="w-3 h-3 bg-current rounded-full animate-bounce delay-300"></div>
+                            <div className="flex space-x-2">
+                                <div className="w-3 h-3 bg-white rounded-full animate-bounce delay-0"></div>
+                                <div className="w-3 h-3 bg-white rounded-full animate-bounce delay-150"></div>
+                                <div className="w-3 h-3 bg-white rounded-full animate-bounce delay-300"></div>
                             </div>
                         ) : (
-                            <>
-                                <PlayIcon className="w-8 h-8 flex-shrink-0" />
-                                <span>{t('getSignal')}</span>
-                            </>
+                            t('getSignal')
                         )}
                     </button>
-                </div>
-
-                {/* Confidence Meter */}
-                <div className="w-full max-w-[360px] bg-[#0c4a6e]/80 backdrop-blur rounded-xl border border-[#38bdf8]/30 py-3 px-6 text-center shadow-lg">
-                    <p className="font-russo text-lg text-white tracking-widest">
-                        {t('confidence')}:- <span className="text-[#4ade80] text-xl filter drop-shadow-[0_0_5px_rgba(74,222,128,0.5)]">
-                            {props.confidence ? `${props.confidence}%` : '--%'}
-                        </span>
-                    </p>
                 </div>
 
             </main>
@@ -240,19 +246,19 @@ const PredictorView = React.memo((props: {
                 .animate-pop-in {
                     animation: pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
                 }
-                @keyframes pulse-slow {
-                    0%, 100% { transform: scale(1); filter: brightness(1); }
-                    50% { transform: scale(1.02); filter: brightness(1.1); }
-                }
-                .animate-pulse-slow {
-                    animation: pulse-slow 3s infinite ease-in-out;
-                }
                 @keyframes spin-once {
                     from { transform: rotate(0deg); }
                     to { transform: rotate(360deg); }
                 }
                 .animate-spin-once {
                     animation: spin-once 0.5s ease-out;
+                }
+                @keyframes fade-in {
+                    from { opacity: 0; transform: translateY(-10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .animate-fade-in {
+                    animation: fade-in 0.2s ease-out forwards;
                 }
             `}</style>
         </div>

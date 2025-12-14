@@ -47,13 +47,10 @@ const PlayIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
+// Updated Filled Star Icon to match PredictorScreen
 const StarIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="w-full h-full drop-shadow-sm">
-    <path 
-        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" 
-        fill="#ffffff" 
-        stroke="none"
-    />
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-white drop-shadow-sm">
+    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
   </svg>
 );
 
@@ -227,36 +224,33 @@ const DemoView: React.FC<{ onExit: () => void }> = ({ onExit }) => {
                 </button>
             </div>
 
-            {/* Grid */}
-            <div className="bg-[#082f49]/40 p-3 rounded-2xl border border-[#bae6fd]/20 shadow-2xl backdrop-blur-sm w-full aspect-square max-w-[320px] mb-6">
-                <div className="grid grid-cols-5 grid-rows-5 gap-2 w-full h-full">
-                    {gridState.map((item, index) => (
-                        <div 
-                            key={index}
-                            className={`
-                                relative w-full h-full rounded-lg flex items-center justify-center overflow-hidden
-                                border-t border-l border-r border-b-[4px]
-                                ${item === 'star' 
-                                    ? 'bg-gradient-to-b from-[#fbbf24] to-[#f59e0b] border-t-[#ffffff]/50 border-l-[#fcd34d] border-r-[#fcd34d] border-b-[#b45309]' 
-                                    : 'bg-[#0c4a6e] border-t-[#38bdf8]/30 border-l-[#38bdf8]/10 border-r-[#38bdf8]/10 border-b-[#062c44]'
-                                }
-                            `}
-                        >
-                            {item === 'empty' && (
-                                <div className="w-2.5 h-2.5 rounded-full bg-[#0ea5e9]/40 shadow-inner"></div>
-                            )}
-                            {item === 'star' && (
-                                <div className="w-[65%] h-[65%] flex items-center justify-center animate-pop-in">
-                                    <StarIcon />
-                                </div>
-                            )}
-                        </div>
-                    ))}
-                </div>
+            {/* Grid - Updated to match PredictorScreen styling */}
+            <div className="w-full aspect-square max-w-[340px] grid grid-cols-5 grid-rows-5 gap-2.5 mb-6">
+                {gridState.map((item, index) => (
+                    <div 
+                        key={index}
+                        className={`
+                            relative w-full h-full rounded-lg shadow-sm flex items-center justify-center
+                            ${item === 'star' 
+                                ? 'bg-[#ffaa00] border-b-4 border-[#cc8800]' // Orange for Stars
+                                : 'bg-[#003366] border-b-4 border-[#002244]' // Dark Blue for Empty
+                            }
+                        `}
+                    >
+                        {item === 'empty' && (
+                            <div className="w-4 h-4 rounded-full bg-[#002244]/50 shadow-inner"></div>
+                        )}
+                        {item === 'star' && (
+                            <div className="w-4/5 h-4/5 animate-pop-in">
+                                <StarIcon />
+                            </div>
+                        )}
+                    </div>
+                ))}
             </div>
 
             {/* Traps */}
-            <div className="flex justify-between w-full max-w-[320px] gap-3 mb-5">
+            <div className="flex justify-between w-full max-w-[340px] gap-3 mb-5">
                 <button className="flex-1 py-2 rounded-full font-russo text-sm tracking-wider bg-[#0ea5e9] border border-white/50 text-white shadow-[0_0_15px_rgba(14,165,233,0.6)] scale-105">
                     MINES 1
                 </button>
@@ -269,7 +263,7 @@ const DemoView: React.FC<{ onExit: () => void }> = ({ onExit }) => {
             </div>
 
             {/* Buttons */}
-             <div className="w-full max-w-[320px] flex gap-3 mb-5 min-h-[56px] h-auto items-stretch">
+             <div className="w-full max-w-[340px] flex gap-3 mb-5 min-h-[56px] h-auto items-stretch">
                 <button
                     onClick={handleRefresh}
                     disabled={!isSignalActive}
