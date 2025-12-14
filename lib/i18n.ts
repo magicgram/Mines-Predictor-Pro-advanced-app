@@ -236,7 +236,7 @@ const en = {
     demo: 'DEMO',
     demoMode: 'DEMO MODE',
     lockedFeature: 'Locked Feature',
-    loginToUnlockTraps: 'Please login to get Prediction 3,5 traps',
+    loginToUnlockTraps: 'Please login to get Prediction 3,5 MINES',
     getPrediction: 'GET PREDICTION',
     trap: 'TRAP',
     traps: 'TRAPS',

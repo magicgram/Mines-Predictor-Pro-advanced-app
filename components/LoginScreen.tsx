@@ -258,13 +258,13 @@ const DemoView: React.FC<{ onExit: () => void }> = ({ onExit }) => {
             {/* Traps */}
             <div className="flex justify-between w-full max-w-[320px] gap-3 mb-5">
                 <button className="flex-1 py-2 rounded-full font-russo text-sm tracking-wider bg-[#0ea5e9] border border-white/50 text-white shadow-[0_0_15px_rgba(14,165,233,0.6)] scale-105">
-                    1 {t('trap')}
+                    MINES 1
                 </button>
                 <button onClick={handleTrapClick} className="flex-1 py-2 rounded-full font-russo text-sm tracking-wider bg-[#0c4a6e] border border-[#075985] text-gray-400 hover:bg-[#0f5c85] opacity-60">
-                    3 {t('traps')}
+                    MINES 3
                 </button>
                 <button onClick={handleTrapClick} className="flex-1 py-2 rounded-full font-russo text-sm tracking-wider bg-[#0c4a6e] border border-[#075985] text-gray-400 hover:bg-[#0f5c85] opacity-60">
-                    5 {t('traps')}
+                    MINES 5
                 </button>
             </div>
 

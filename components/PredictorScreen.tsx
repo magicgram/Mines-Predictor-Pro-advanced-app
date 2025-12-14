@@ -173,7 +173,7 @@ const PredictorView = React.memo((props: {
                                 ${props.isSignalActive ? 'opacity-50 cursor-not-allowed' : 'active:scale-95'}
                             `}
                         >
-                            {traps} {traps === 1 ? t('trap') : t('traps')}
+                            MINES {traps}
                         </button>
                     ))}
                 </div>
