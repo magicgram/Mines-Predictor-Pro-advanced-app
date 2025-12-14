@@ -117,7 +117,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onNavigate, onLogout
             className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
             onClick={onClose}
         />
-        <div className={`fixed top-0 left-0 h-full w-72 bg-[#082f49] border-r border-[#38bdf8]/20 text-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} flex flex-col`}>
+        {/* Updated Background to Deep Blue */}
+        <div className={`fixed top-0 left-0 h-full w-72 bg-[#002244] border-r border-[#004080] text-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} flex flex-col`}>
             <input
                 type="file"
                 ref={fileInputRef}
@@ -125,12 +126,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onNavigate, onLogout
                 accept="image/*"
                 className="hidden"
             />
-            <div className="flex-shrink-0 bg-[#0c4a6e]/50 p-4 pt-6 border-b border-[#38bdf8]/10">
+            {/* Header Section */}
+            <div className="flex-shrink-0 bg-[#003366] p-4 pt-6 border-b border-[#004080]">
                 <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center gap-3">
                         <button
                             onClick={handleProfilePicClick}
-                            className="w-12 h-12 flex-shrink-0 bg-[#083344] border-2 border-[#38bdf8]/30 rounded-full group relative disabled:cursor-not-allowed flex items-center justify-center"
+                            className="w-12 h-12 flex-shrink-0 bg-[#002244] border-2 border-[#004080] rounded-full group relative disabled:cursor-not-allowed flex items-center justify-center"
                             disabled={!isLoggedIn}
                             aria-label={t('changeProfilePic')}
                         >
@@ -147,7 +149,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onNavigate, onLogout
                         </button>
                         <div>
                             <p className="font-bold text-lg text-white truncate max-w-40">{playerId ? t('welcomeUser', {playerId}) : t('welcome')}</p>
-                            <p className="text-sm text-[#38bdf8]/80 font-poppins">Mines Predictor Pro</p>
+                            <p className="text-sm text-white/60 font-poppins">Mines Predictor Pro</p>
                         </div>
                     </div>
                     <button onClick={onClose} className="p-1 -mt-1 -mr-1 rounded-full text-white/70 hover:bg-white/10 hover:text-white transition-colors">
@@ -186,12 +188,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onNavigate, onLogout
                                 </svg>
                             </button>
                             {isLangMenuOpen && (
-                                <div className="mt-2 ml-4 pl-4 border-l-2 border-[#38bdf8]/20 max-h-60 overflow-y-auto">
+                                <div className="mt-2 ml-4 pl-4 border-l-2 border-[#004080] max-h-60 overflow-y-auto">
                                     {languages.map((lang) => (
                                         <button
                                             key={lang.code}
                                             onClick={() => handleLanguageSelect(lang.code)}
-                                            className={`w-full text-left p-2 rounded-md text-sm transition-colors ${language === lang.code ? 'bg-[#0c4a6e]/50 text-[#38bdf8] font-bold' : 'text-gray-300 hover:bg-white/10'}`}
+                                            className={`w-full text-left p-2 rounded-md text-sm transition-colors ${language === lang.code ? 'bg-[#003366] text-white font-bold' : 'text-gray-300 hover:bg-white/10'}`}
                                         >
                                             {lang.flag} {lang.name}
                                         </button>
@@ -203,7 +205,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onNavigate, onLogout
                 </div>
             </nav>
             
-            <div className="p-2 border-t border-[#38bdf8]/20 flex-shrink-0">
+            <div className="p-2 border-t border-[#004080] flex-shrink-0">
                 <div className="flex items-center justify-between">
                     <div>
                         {isLoggedIn && (

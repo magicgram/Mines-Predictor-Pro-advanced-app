@@ -28,10 +28,10 @@ interface OnboardingModalProps {
 const OnboardingModal: React.FC<OnboardingModalProps> = ({ onClose }) => {
   const { t } = useLanguage();
   return (
-    <div className="fixed inset-0 z-50 flex flex-col animate-fade-in font-poppins text-white p-4 bg-[#0088ff]" 
+    <div className="fixed inset-0 z-50 flex flex-col animate-fade-in font-poppins text-white p-4 bg-[#0066cc]" 
         aria-modal="true" role="dialog">
-       {/* Gradient Background matching reference */}
-       <div className="absolute inset-0 bg-gradient-to-b from-[#0ea5e9] via-[#0284c7] to-[#0c4a6e] z-0"></div>
+       {/* Background matching PredictorScreen */}
+       <div className="absolute inset-0 bg-[#0080ff] z-0"></div>
 
        <div className="relative z-10 flex flex-col h-full w-full">
           <style>{`
@@ -49,7 +49,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onClose }) => {
           </header>
 
           <main className="flex-grow overflow-y-auto py-4">
-              <div className="max-w-lg mx-auto bg-[#082f49]/40 backdrop-blur-md rounded-2xl p-6 space-y-6 border border-[#38bdf8]/20 shadow-lg">
+              <div className="max-w-lg mx-auto bg-[#003366] rounded-2xl p-6 space-y-6 border border-[#004080] shadow-lg">
                   <div className="flex items-start gap-4">
                       <div className="flex-shrink-0 pt-1"><HowToPlayIcon /></div>
                       <div>
@@ -74,7 +74,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onClose }) => {
                   </div>
               </div>
               
-              <div className="text-center p-3 bg-[#38bdf8]/10 border border-[#38bdf8]/30 rounded-lg mt-4">
+              <div className="text-center p-3 bg-[#002244] border border-[#004080] rounded-lg mt-4">
                   <p className="font-bold text-[#38bdf8]">{t('disclaimer')}</p>
                   <p className="text-sm text-[#38bdf8]/80">{t('disclaimerText')}</p>
               </div>
@@ -84,7 +84,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onClose }) => {
       <footer className="w-full flex items-center justify-center mt-auto flex-shrink-0 pb-4">
           <button
             onClick={onClose}
-            className="w-full max-w-xs py-3 bg-gradient-to-r from-[#4ade80] to-[#16a34a] text-[#064e3b] font-poppins font-bold text-lg uppercase rounded-full transition-all hover:brightness-110 active:scale-95 shadow-lg shadow-black/30 border-b-4 border-[#14532d] active:border-b-0 active:translate-y-1"
+            className="w-full max-w-xs py-3 bg-[#33cc33] text-white font-poppins font-bold text-lg uppercase rounded-full transition-all hover:brightness-110 active:scale-95 shadow-lg border-b-4 border-[#228822] active:border-b-0 active:translate-y-1"
             aria-label={t('closeWelcomeGuide')}
             >
             {t('iUnderstand')}

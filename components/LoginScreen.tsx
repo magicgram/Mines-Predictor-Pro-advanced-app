@@ -73,11 +73,11 @@ const DepositMessage: React.FC<{
         <button
           onClick={onRegister}
           disabled={isRegistering}
-          className="w-full py-3 px-4 min-h-[56px] h-auto whitespace-normal break-words leading-tight bg-gradient-to-r from-[#4ade80] to-[#16a34a] text-[#064e3b] font-poppins font-bold text-lg uppercase rounded-xl transition-all hover:brightness-110 active:scale-95 disabled:opacity-50 shadow-lg shadow-black/30 border-b-4 border-[#14532d] active:border-b-0 active:translate-y-1 flex items-center justify-center"
+          className="w-full py-3 px-4 min-h-[56px] h-auto whitespace-normal break-words leading-tight bg-[#33cc33] text-white font-russo text-lg uppercase rounded-full transition-all hover:brightness-110 active:scale-95 disabled:opacity-50 shadow-lg border-b-4 border-[#228822] active:border-b-0 active:translate-y-1 flex items-center justify-center"
         >
           {isRegistering ? (
             <div className="flex justify-center items-center">
-              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#064e3b]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
@@ -89,7 +89,7 @@ const DepositMessage: React.FC<{
         </button>
         <button
           onClick={onBack}
-          className="w-full py-3 px-4 min-h-[56px] h-auto whitespace-normal break-words leading-tight bg-[#083344]/50 border-2 border-[#38bdf8]/50 text-white font-poppins font-bold text-lg uppercase rounded-xl transition-colors hover:bg-[#083344]/80 flex items-center justify-center"
+          className="w-full py-3 px-4 min-h-[56px] h-auto whitespace-normal break-words leading-tight bg-[#003366] border border-[#004080] text-white font-russo text-lg uppercase rounded-full transition-colors hover:bg-[#004080] flex items-center justify-center"
         >
           {t('back').toUpperCase()}
         </button>
@@ -121,11 +121,11 @@ const ReDepositMessage: React.FC<{
         <button
           onClick={onRegister}
           disabled={isRegistering}
-          className="w-full py-3 px-4 min-h-[56px] h-auto whitespace-normal break-words leading-tight bg-gradient-to-r from-[#4ade80] to-[#16a34a] text-[#064e3b] font-poppins font-bold text-lg uppercase rounded-xl transition-all hover:brightness-110 active:scale-95 disabled:opacity-50 shadow-lg shadow-black/30 border-b-4 border-[#14532d] active:border-b-0 active:translate-y-1 flex items-center justify-center"
+          className="w-full py-3 px-4 min-h-[56px] h-auto whitespace-normal break-words leading-tight bg-[#33cc33] text-white font-russo text-lg uppercase rounded-full transition-all hover:brightness-110 active:scale-95 disabled:opacity-50 shadow-lg border-b-4 border-[#228822] active:border-b-0 active:translate-y-1 flex items-center justify-center"
         >
           {isRegistering ? (
             <div className="flex justify-center items-center">
-              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#064e3b]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
@@ -137,7 +137,7 @@ const ReDepositMessage: React.FC<{
         </button>
         <button
           onClick={onBack}
-          className="w-full py-3 px-4 min-h-[56px] h-auto whitespace-normal break-words leading-tight bg-[#083344]/50 border-2 border-[#38bdf8]/50 text-white font-poppins font-bold text-lg uppercase rounded-xl transition-colors hover:bg-[#083344]/80 flex items-center justify-center"
+          className="w-full py-3 px-4 min-h-[56px] h-auto whitespace-normal break-words leading-tight bg-[#003366] border border-[#004080] text-white font-russo text-lg uppercase rounded-full transition-colors hover:bg-[#004080] flex items-center justify-center"
         >
           {t('back').toUpperCase()}
         </button>
@@ -213,7 +213,7 @@ const DemoView: React.FC<{ onExit: () => void }> = ({ onExit }) => {
         <div className="w-full h-full flex flex-col items-center relative animate-fade-in-up">
             {/* Header */}
             <div className="w-full flex justify-center items-center mb-6 relative">
-                 <h1 className="text-3xl font-russo text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] to-[#cceeff] drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] tracking-wide">
+                 <h1 className="text-3xl font-russo text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] tracking-wide">
                     {t('demoMode')}
                 </h1>
                 <button 
@@ -251,13 +251,13 @@ const DemoView: React.FC<{ onExit: () => void }> = ({ onExit }) => {
 
             {/* Traps */}
             <div className="flex justify-between w-full max-w-[340px] gap-3 mb-5">
-                <button className="flex-1 py-2 rounded-full font-russo text-sm tracking-wider bg-[#0ea5e9] border border-white/50 text-white shadow-[0_0_15px_rgba(14,165,233,0.6)] scale-105">
+                <button className="flex-1 py-2 rounded-full font-russo text-sm tracking-wider bg-[#004080] border border-[#0055aa] text-white shadow-[0_0_15px_rgba(0,64,128,0.6)] scale-105">
                     MINES 1
                 </button>
-                <button onClick={handleTrapClick} className="flex-1 py-2 rounded-full font-russo text-sm tracking-wider bg-[#0c4a6e] border border-[#075985] text-gray-400 hover:bg-[#0f5c85] opacity-60">
+                <button onClick={handleTrapClick} className="flex-1 py-2 rounded-full font-russo text-sm tracking-wider bg-[#003366] border border-[#004080] text-gray-400 hover:bg-[#003366] opacity-60">
                     MINES 3
                 </button>
-                <button onClick={handleTrapClick} className="flex-1 py-2 rounded-full font-russo text-sm tracking-wider bg-[#0c4a6e] border border-[#075985] text-gray-400 hover:bg-[#0f5c85] opacity-60">
+                <button onClick={handleTrapClick} className="flex-1 py-2 rounded-full font-russo text-sm tracking-wider bg-[#003366] border border-[#004080] text-gray-400 hover:bg-[#003366] opacity-60">
                     MINES 5
                 </button>
             </div>
@@ -267,30 +267,30 @@ const DemoView: React.FC<{ onExit: () => void }> = ({ onExit }) => {
                 <button
                     onClick={handleRefresh}
                     disabled={!isSignalActive}
-                    className={`min-h-[56px] h-auto w-[56px] rounded-2xl flex items-center justify-center border-b-4 transition-all flex-shrink-0
+                    className={`min-h-[56px] h-auto w-[56px] rounded-full flex items-center justify-center border-b-4 transition-all flex-shrink-0
                         ${isSignalActive 
-                            ? 'bg-[#3b82f6] border-[#1d4ed8] text-white shadow-lg active:border-b-0 active:translate-y-1 hover:brightness-110 cursor-pointer' 
-                            : 'bg-[#1e293b] border-[#0f172a] text-gray-600 cursor-not-allowed'}
+                            ? 'bg-[#0055aa] border-[#003366] text-white hover:scale-105 active:scale-95 active:border-b-0 active:translate-y-1' 
+                            : 'bg-[#002244] border-[#001122] text-white/30 cursor-not-allowed'}
                     `}
                 >
-                    <RefreshIcon className={`w-7 h-7 ${isSignalActive ? 'animate-spin-once' : ''}`} />
+                    <RefreshIcon className={`w-8 h-8 ${isSignalActive ? 'animate-spin-once' : ''}`} />
                 </button>
 
                 <button
                     onClick={handleGetSignal}
                     disabled={isSignalActive || isLoading}
                     className={`
-                        flex-1 min-h-[56px] h-auto py-2 px-2 rounded-2xl flex items-center justify-center gap-2 font-russo text-xl tracking-wide border-b-4 transition-all shadow-xl whitespace-normal break-words leading-tight
+                        flex-1 min-h-[56px] h-auto py-2 px-2 rounded-full flex items-center justify-center gap-2 font-russo text-xl tracking-wide border-b-4 transition-all shadow-xl whitespace-normal break-words leading-tight
                         ${!isSignalActive && !isLoading
-                            ? 'bg-gradient-to-r from-[#4ade80] to-[#16a34a] border-[#14532d] text-[#064e3b] hover:brightness-110 active:border-b-0 active:translate-y-1'
-                            : 'bg-[#1e293b] border-[#0f172a] text-gray-500 cursor-not-allowed'}
+                            ? 'bg-[#33cc33] border-[#228822] text-white hover:brightness-110 active:border-b-0 active:translate-y-1'
+                            : 'bg-[#002244] border-[#001122] text-white/30 cursor-not-allowed'}
                     `}
                 >
                     {isLoading ? (
-                         <div className="flex space-x-1">
-                            <div className="w-2.5 h-2.5 bg-current rounded-full animate-bounce delay-0"></div>
-                            <div className="w-2.5 h-2.5 bg-current rounded-full animate-bounce delay-150"></div>
-                            <div className="w-2.5 h-2.5 bg-current rounded-full animate-bounce delay-300"></div>
+                         <div className="flex space-x-2">
+                            <div className="w-3 h-3 bg-white rounded-full animate-bounce delay-0"></div>
+                            <div className="w-3 h-3 bg-white rounded-full animate-bounce delay-150"></div>
+                            <div className="w-3 h-3 bg-white rounded-full animate-bounce delay-300"></div>
                         </div>
                     ) : (
                          <>
@@ -304,7 +304,7 @@ const DemoView: React.FC<{ onExit: () => void }> = ({ onExit }) => {
             {/* Login Prompt Modal */}
             {showLoginPrompt && (
                 <div className="absolute inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm rounded-xl">
-                    <div className="w-full max-w-xs bg-[#082f49] border border-[#38bdf8]/30 rounded-2xl p-6 relative shadow-2xl animate-fade-in-up">
+                    <div className="w-full max-w-xs bg-[#003366] border border-[#004080] rounded-2xl p-6 relative shadow-2xl animate-fade-in-up">
                          <button 
                             onClick={() => setShowLoginPrompt(false)}
                             className="absolute top-3 right-3 text-white/50 hover:text-white"
@@ -317,7 +317,7 @@ const DemoView: React.FC<{ onExit: () => void }> = ({ onExit }) => {
                          </p>
                          <button
                             onClick={onExit}
-                            className="w-full py-3 px-4 min-h-[50px] h-auto whitespace-normal break-words leading-tight bg-gradient-to-r from-[#3b82f6] to-[#2563eb] text-white font-poppins font-bold text-sm uppercase rounded-xl shadow-lg border-b-4 border-[#1e40af] active:border-b-0 active:translate-y-1 hover:brightness-110"
+                            className="w-full py-3 px-4 min-h-[50px] h-auto whitespace-normal break-words leading-tight bg-[#33cc33] text-white font-russo font-bold text-sm uppercase rounded-full shadow-lg border-b-4 border-[#228822] active:border-b-0 active:translate-y-1 hover:brightness-110"
                          >
                             {t('getPrediction')}
                          </button>
@@ -467,10 +467,10 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
 
   return (
     <div 
-        className="w-full min-h-screen flex flex-col items-center justify-between p-4 relative overflow-hidden font-poppins bg-[#0088ff]" 
+        className="w-full min-h-screen flex flex-col items-center justify-between p-4 relative overflow-hidden font-poppins bg-[#0066cc]" 
     >
-      {/* Gradient Background matching reference */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0ea5e9] via-[#0284c7] to-[#0c4a6e] z-0"></div>
+      {/* Blue Background matching PredictorScreen */}
+      <div className="absolute inset-0 bg-[#0080ff] z-0"></div>
 
       {/* Top Bar */}
       <div className="absolute top-6 left-4 z-30">
@@ -499,11 +499,11 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
         {isDemoMode ? (
             <DemoView onExit={handleExitDemo} />
         ) : needsDeposit ? (
-            <div className="w-full bg-[#082f49]/40 backdrop-blur-md rounded-2xl p-6 md:p-8 text-white border border-[#38bdf8]/20 shadow-2xl">
+            <div className="w-full bg-[#003366] rounded-2xl p-6 md:p-8 text-white border border-[#004080] shadow-2xl">
               <DepositMessage onBack={handleBackFromDeposit} onRegister={handleRegister} isRegistering={isRegistering} />
             </div>
         ) : needsReDeposit ? (
-            <div className="w-full bg-[#082f49]/40 backdrop-blur-md rounded-2xl p-6 md:p-8 text-white border border-[#38bdf8]/20 shadow-2xl">
+            <div className="w-full bg-[#003366] rounded-2xl p-6 md:p-8 text-white border border-[#004080] shadow-2xl">
               <ReDepositMessage onBack={handleBackFromReDeposit} onRegister={handleRegister} isRegistering={isRegistering} />
             </div>
         ) : (
@@ -540,18 +540,18 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
                         value={playerId}
                         onChange={(e) => setPlayerId(e.target.value)}
                         placeholder={t('playerIdLabel')}
-                        className="w-full pl-12 pr-5 py-3 bg-[#083344]/60 border border-[#38bdf8]/30 text-white placeholder-gray-400 font-poppins text-base rounded-xl focus:outline-none focus:ring-2 focus:ring-[#38bdf8] transition shadow-inner"
+                        className="w-full pl-12 pr-5 py-3 bg-[#003366] border border-[#004080] text-white placeholder-gray-400 font-poppins text-base rounded-full focus:outline-none focus:ring-2 focus:ring-[#0080ff] transition shadow-inner"
                     />
                 </div>
 
                 <button
                     onClick={handleContinue}
                     disabled={isLoading || !playerId}
-                    className="w-full py-3 px-4 min-h-[56px] h-auto whitespace-normal break-words leading-tight bg-gradient-to-r from-[#4ade80] to-[#16a34a] text-[#064e3b] font-poppins font-bold text-lg uppercase rounded-xl transition-all hover:brightness-110 active:scale-95 disabled:opacity-50 shadow-lg shadow-black/30 border-b-4 border-[#14532d] active:border-b-0 active:translate-y-1 flex items-center justify-center"
+                    className="w-full py-3 px-4 min-h-[56px] h-auto whitespace-normal break-words leading-tight bg-[#33cc33] text-white font-russo text-lg uppercase rounded-full transition-all hover:brightness-110 active:scale-95 disabled:opacity-50 shadow-lg border-b-4 border-[#228822] active:border-b-0 active:translate-y-1 flex items-center justify-center"
                 >
                     {isLoading ? (
                         <div className="flex justify-center items-center h-[28px]">
-                            <svg className="animate-spin h-5 w-5 text-[#064e3b]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
@@ -568,7 +568,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
               <button
                   onClick={handleRegister}
                   disabled={isRegistering}
-                  className="w-full py-3 px-4 min-h-[56px] h-auto whitespace-normal break-words leading-tight bg-[#083344]/50 border-2 border-[#38bdf8]/50 text-white font-poppins font-bold text-lg uppercase rounded-xl transition-all hover:bg-[#083344]/80 disabled:opacity-50 flex items-center justify-center"
+                  className="w-full py-3 px-4 min-h-[56px] h-auto whitespace-normal break-words leading-tight bg-[#003366] border border-[#004080] text-white font-russo text-lg uppercase rounded-full transition-all hover:bg-[#004080] disabled:opacity-50 flex items-center justify-center"
               >
                 {isRegistering ? (
                     <div className="flex justify-center items-center h-[28px]">
