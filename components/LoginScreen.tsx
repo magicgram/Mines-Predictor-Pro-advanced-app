@@ -592,7 +592,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
         )}
       </main>
 
-      {!isDemoMode && <p className="text-white/50 text-sm font-poppins z-20 pb-2">v15.9.0</p>}
+      {!isDemoMode && <p className="text-white/50 text-sm font-poppins z-20 pb-2">v16.9.0</p>}
     </div>
   );
 };
